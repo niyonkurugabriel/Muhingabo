@@ -6,8 +6,13 @@ $item_id = (int) $_POST['item_id'];
 $quantity = (int) $_POST['quantity'];
 $price = (float) $_POST['price'];
 
-auto:
-// check stock
+// basic validation
+if ($item_id <= 0 || $quantity <= 0 || $price <= 0) {
+	header('Location: sell_item.php?error=invalid');
+	exit;
+}
+
+// check stock & item exists
 $res = mysqli_query($conn, "SELECT quantity, item_name FROM items WHERE item_id = $item_id LIMIT 1");
 if (!$res || mysqli_num_rows($res) == 0) { header('Location: sell_item.php?error=invalid'); exit; }
 $row = mysqli_fetch_assoc($res);
