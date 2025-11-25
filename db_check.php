@@ -19,6 +19,14 @@ if ($res) {
 } else { echo "Error reading purchases: " . mysqli_error($conn) . "\n"; }
 
 echo "\n== Latest Actions ==\n";
+// show actions table schema for debugging
+$schema = mysqli_query($conn, "SHOW CREATE TABLE actions");
+if ($schema) {
+  $s = mysqli_fetch_assoc($schema);
+  if (isset($s['Create Table'])) {
+    echo "\n-- actions table DDL --\n" . $s['Create Table'] . "\n\n";
+  }
+}
 $res = mysqli_query($conn, "SELECT * FROM actions ORDER BY action_date DESC LIMIT 20");
 if ($res) {
   while ($r = mysqli_fetch_assoc($res)) {

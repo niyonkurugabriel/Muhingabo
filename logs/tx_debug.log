@@ -1,0 +1,7 @@
+[2025-11-25 22:18:05] execute failed (insert action): Duplicate entry 'SALE' for key 'PRIMARY'
+[2025-11-25 22:26:26] execute failed (insert action purchase): Duplicate entry 'PURCHASE' for key 'PRIMARY'
+[2025-11-25 22:26:26] transaction failed: 
+[2025-11-25 22:26:38] execute failed (insert action purchase): Duplicate entry 'PURCHASE' for key 'PRIMARY'
+[2025-11-25 22:26:38] transaction failed: 
+[2025-11-25 22:27:07] execute failed (insert action sale): Duplicate entry 'SALE' for key 'PRIMARY'
+[2025-11-25 22:27:07] transaction failed sale: 
