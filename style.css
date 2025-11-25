@@ -1,0 +1,86 @@
+
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #fbfbff; }
+.navbar { background: linear-gradient(135deg,#7c5cff,#5aa0ff) !important; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.navbar-brand { font-size: 1.15rem; font-weight: 700; }
+.nav-link { transition: all 0.3s ease; margin: 0 8px; }
+.nav-link:hover { transform: translateY(-2px); color: #fff !important; }
+.nav-link.active { border-bottom: 3px solid #fff; padding-bottom: 5px; }
+.card { border-radius: 1rem; }
+.item-tile { transition: box-shadow 0.2s, transform 0.2s; cursor: pointer; }
+.item-tile:hover, .item-tile:focus { box-shadow: 0 8px 24px rgba(124,92,255,0.12); transform: translateY(-2px) scale(1.03); }
+.item-details { background: #f8f9fa; border-radius: 0.5rem; padding: 0.5rem 0.75rem; margin-top: 0.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.item-image { width: 100%; height: 130px; object-fit: cover; border-radius: 0.75rem; }
+.btn-primary { background: linear-gradient(135deg,#7c5cff,#5aa0ff); border: none; }
+.btn-success { background: linear-gradient(135deg,#8be78b,#45d28b); border: none; color: #fff; }
+.table-hover tbody tr:hover { transform: translateX(4px); transition: .12s ease; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
+.low-stock { background: linear-gradient(90deg,#fff3f2,#ffecec); }
+.badge-low { background:#ff6b81; color:#fff; padding:3px 7px; border-radius:999px; font-size:0.85rem; }
+footer { color:#6c757d; }
+.heart::after { content:' ♥'; color:#ff6b81; margin-left:6px; }
+
+/* Enhanced Flow Action Buttons */
+.flow-action-btn {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+}
+
+.flow-action-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: left 0.3s ease;
+  z-index: 0;
+}
+
+.flow-action-btn:hover::before {
+  left: 100%;
+}
+
+.flow-action-btn:hover {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Sale Button - Red to Orange Gradient Hover */
+.flow-sale {
+  background: linear-gradient(135deg, #dc3545, #c82333) !important;
+  border: none;
+}
+
+.flow-sale:hover {
+  background: linear-gradient(135deg, #ff8c42, #ffa500) !important;
+  color: #fff !important;
+}
+
+/* Purchase Button - Green to Dark Green Hover */
+.flow-purchase {
+  background: linear-gradient(135deg, #28a745, #1e7e34) !important;
+  border: none;
+}
+
+.flow-purchase:hover {
+  background: linear-gradient(135deg, #20c997, #0d6b4f) !important;
+  color: #fff !important;
+}
+
+/* Pulse Animation */
+@keyframes pulse-flow {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.flow-action-btn:active {
+  animation: pulse-flow 0.6s ease-out;
+}
