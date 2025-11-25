@@ -6,7 +6,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
   <div class="container-fluid">
     <div class="d-flex gap-2 align-items-center">
       <a class="navbar-brand fw-bold" href="index.php">
-        <span style="font-size: 1.5rem;">🌸</span> MUHINGABO INVENTORY
+        <span style="font-size: 1.5rem;">🌸</span> MUHINGABO STOCK
       </a>
     </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -20,9 +20,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
           </a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle <?php echo in_array($current_page, ['view_items.php','add_item.php']) ? 'active' : ''; ?>" href="#" id="invMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inventory</a>
+          <a class="nav-link dropdown-toggle <?php echo in_array($current_page, ['view_items.php','add_item.php']) ? 'active' : ''; ?>" href="#" id="invMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Stock</a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="invMenu">
-            <li><a class="dropdown-item" href="view_items.php">View Inventory</a></li>
+            <li><a class="dropdown-item" href="view_items.php">View Stock</a></li>
             <li><a class="dropdown-item" href="add_item.php">Add Item</a></li>
           </ul>
         </li>

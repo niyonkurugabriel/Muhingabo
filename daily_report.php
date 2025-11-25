@@ -105,7 +105,7 @@ foreach ($monthKeys as $k) {
     <h1>📊 Daily Report & Balance Sheet</h1>
     <div class="input-group" style="width: 200px;">
       <input type="date" id="reportDate" class="form-control" value="<?php echo $report_date; ?>">
-      <button class="btn btn-primary" onclick="goToDate()">Go</button>
+      <button type="button" class="btn btn-primary" onclick="goToDate()">Go</button>
     </div>
   </div>
 
@@ -257,7 +257,7 @@ foreach ($monthKeys as $k) {
   </div>
 
   <div class="text-center mt-4">
-    <button class="btn btn-outline-secondary" onclick="window.print()">🖨️ Print Report</button>
+    <button type="button" class="btn btn-outline-secondary" onclick="window.print()">🖨️ Print Report</button>
     <a href="daily_report.php?date=<?php echo date('Y-m-d', strtotime($report_date . ' -1 day')); ?>" class="btn btn-outline-primary">← Previous Day</a>
     <a href="daily_report.php" class="btn btn-outline-primary">Today</a>
     <a href="daily_report.php?date=<?php echo date('Y-m-d', strtotime($report_date . ' +1 day')); ?>" class="btn btn-outline-primary">Next Day →</a>

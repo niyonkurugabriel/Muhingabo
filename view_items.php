@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MUHINGABO - Inventory List</title>
+<title>MUHINGABO - Stock List</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -31,7 +31,7 @@
           <label class="form-check-label" for="low_stock">Low Stock</label>
         </div>
         <div class="col-md-2">
-          <button class="btn btn-primary w-100">Filter</button>
+          <button type="submit" class="btn btn-primary w-100">Filter</button>
         </div>
       </form>
     </div>

@@ -48,7 +48,7 @@
           <input type="file" name="image" accept="image/*" class="form-control">
         </div>
         <div class="col-12">
-          <button class="btn btn-success">Save Item</button>
+          <button type="submit" class="btn btn-success">Save Item</button>
         </div>
       </form>
     </div>

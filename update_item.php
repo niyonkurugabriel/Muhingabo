@@ -34,7 +34,7 @@ if (!$item) { header('Location: view_items.php'); exit; }
         <?php endif; ?>
         <input type="file" name="image" accept="image/*" class="form-control">
       </div>
-      <div class="col-12"><button class="btn btn-primary">Save Changes</button></div>
+      <div class="col-12"><button type="submit" class="btn btn-primary">Save Changes</button></div>
     </form>
   </div>
 </div>

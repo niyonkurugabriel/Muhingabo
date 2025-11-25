@@ -44,7 +44,7 @@
           <input type="number" step="0.01" name="price" class="form-control" required>
         </div>
         <div class="col-12">
-          <button class="btn btn-danger">Record Sale</button>
+          <button type="submit" class="btn btn-danger">Record Sale</button>
         </div>
       </form>
     </div>
