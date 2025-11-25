@@ -32,7 +32,7 @@ $ok = true;
 
 // Insert purchase
 $stmt1 = mysqli_prepare($conn, "INSERT INTO purchases (item_id, quantity, price, total, purchase_date, details) VALUES (?, ?, ?, ?, NOW(), '')");
-mysqli_stmt_bind_param($stmt1, "iddd", $item_id, $quantity, $price, $total);
+mysqli_stmt_bind_param($stmt1, "iidd", $item_id, $quantity, $price, $total);
 if(!mysqli_stmt_execute($stmt1)) {
 	$ok = false;
 }
