@@ -13,7 +13,7 @@
 <div class="container py-4">
   <div class="card shadow-sm">
     <div class="card-body">
-      <h3 class="card-title mb-3">Add New Item</h3>
+      <h3 class="card-title mb-3" style="color: #fff;">Add New Item</h3>
       <?php if (isset($_GET['error']) && $_GET['error'] === 'duplicate'): ?>
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
           <strong>Duplicate Item!</strong> An item with that name already exists.

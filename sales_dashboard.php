@@ -16,7 +16,7 @@
   </div>
   <div class="card shadow-sm">
     <div class="card-body">
-      <h3>Sales History</h3>
+      <h3 style="color: #fff;">Sales History</h3>
       <?php if (isset($_GET['msg']) && $_GET['msg'] === 'ok'): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
           <strong>Sale recorded!</strong> Stock has been decremented.

@@ -13,7 +13,7 @@
 <div class="container py-4">
   <div class="card shadow-sm">
     <div class="card-body">
-      <h3>Purchase (stock in)</h3>
+      <h3 style="color: #fff;">Purchase (stock in)</h3>
       <?php if (isset($_GET['msg']) && $_GET['msg'] === 'ok'): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
           <strong>Purchase recorded!</strong> Stock has been updated.

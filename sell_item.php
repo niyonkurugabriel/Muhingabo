@@ -13,7 +13,7 @@
 <div class="container py-4">
   <div class="card shadow-sm">
     <div class="card-body">
-      <h3>Sell Item</h3>
+      <h3 style="color: #fff;">Sell Item</h3>
       <?php if (isset($_GET['error']) && $_GET['error'] === 'stock'): ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
           <strong>Insufficient stock!</strong> Not enough quantity available.

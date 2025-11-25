@@ -19,7 +19,7 @@ if (!$item) { header('Location: view_items.php'); exit; }
 <div class="container">
 <div class="card shadow-sm">
   <div class="card-body">
-    <h3>Edit Item</h3>
+    <h3 style="color: #fff;">Edit Item</h3>
     <form action="save_update.php" method="POST" class="row g-3" enctype="multipart/form-data">
       <input type="hidden" name="item_id" value="<?php echo $item['item_id']; ?>">
       <div class="col-md-6"><label class="form-label">Item Name</label><input class="form-control" name="item_name" value="<?php echo htmlspecialchars($item['item_name']); ?>"></div>

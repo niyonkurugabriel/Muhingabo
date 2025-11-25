@@ -39,7 +39,7 @@
 
   <div class="card shadow-sm">
     <div class="card-body">
-      <h3 class="card-title">Stock items</h3>
+      <h3 class="card-title" style="color: #fff;">Stock items</h3>
       <table class="table table-hover align-middle">
         <thead>
           <tr>
@@ -50,7 +50,7 @@
         <tbody id="inventory-body"></tbody>
       </table>
 
-      <h5 class="mt-4 mb-3">Action Log (most recent 10) <a href="audit_log.php" class="float-end btn btn-sm btn-outline-primary">View Full Audit Log →</a></h5>
+      <h5 class="mt-4 mb-3" style="color: #fff;">Action Log (most recent 10) <a href="audit_log.php" class="float-end btn btn-sm btn-outline-primary">View Full Audit Log →</a></h5>
       <div class="table-responsive">
         <table class="table table-sm table-hover">
           <thead class="table-light">
@@ -68,7 +68,7 @@
               while ($l = mysqli_fetch_assoc($logres)) {
                 $type_badge = '';
                 if ($l['action_type'] === 'ADD') $type_badge = 'bg-info';
-                elseif ($l['action_type'] === 'UPDATE') $type_badge = 'bg-warning text-dark';
+                elseif ($l['action_type'] === 'UPDATE') $type_badge = 'bg-warning text-white';
                 elseif ($l['action_type'] === 'SALE') $type_badge = 'bg-danger';
                 elseif ($l['action_type'] === 'PURCHASE') $type_badge = 'bg-success';
                 else $type_badge = 'bg-secondary';
