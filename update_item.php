@@ -13,7 +13,7 @@ if (!$item) { header('Location: view_items.php'); exit; }
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-light">
+<body>
 <?php include 'navbar.php'; ?>
 <div class="p-4">
 <div class="container">

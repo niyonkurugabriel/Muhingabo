@@ -8,13 +8,13 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-light">
+<body>
   <?php include 'navbar.php'; ?>
 
   <main class="container py-5">
-    <div class="p-4 bg-white rounded shadow-sm text-center mb-4">
-      <h1 class="display-6 mb-3">Welcome to your Inventory</h1>
-      <p class="lead">Track items, quantities and see a log of every Add / Update / Delete with timestamps.</p>
+    <div class="p-4 bg-dark rounded shadow-sm text-center mb-4" style="background: linear-gradient(135deg, #1e1e2e, #2a2a3e) !important; border: 1px solid #333;">
+      <h1 class="display-6 mb-3" style="color: #fff;">Welcome to your Stock</h1>
+      <p class="lead" style="color: #c0c0c0;">Track items, quantities and see a log of every Add / Update / Delete with timestamps.</p>
       <a class="btn btn-primary btn-lg" href="view_items.php">View Inventory</a>
     </div>
 

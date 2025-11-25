@@ -98,7 +98,7 @@ foreach ($monthKeys as $k) {
     .print-btn { position: fixed; bottom: 30px; right: 30px; }
   </style>
 </head>
-<body class="bg-light">
+<body>
 <?php include 'navbar.php'; ?>
 <div class="container-lg py-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
@@ -113,7 +113,7 @@ foreach ($monthKeys as $k) {
   <div class="row mb-4">
     <div class="col-12">
       <div class="card shadow-sm">
-        <div class="card-header bg-light">
+        <div class="card-header" style="background: linear-gradient(135deg, #2a2a3e, #1e1e2e); border-bottom: 1px solid #333; color: #fff;">
           <h5 class="mb-0">📈 Monthly Transactions (last 12 months)</h5>
         </div>
         <div class="card-body">
@@ -171,7 +171,7 @@ foreach ($monthKeys as $k) {
   <div class="row g-3 mb-4">
     <div class="col-lg-6">
       <div class="card shadow-sm">
-        <div class="card-header bg-light">
+        <div class="card-header" style="background: linear-gradient(135deg, #2a2a3e, #1e1e2e); border-bottom: 1px solid #333; color: #fff;">
           <h5 class="mb-0">💰 Sales Breakdown</h5>
         </div>
         <div class="card-body">
@@ -200,7 +200,7 @@ foreach ($monthKeys as $k) {
     <!-- Purchase Breakdown -->
     <div class="col-lg-6">
       <div class="card shadow-sm">
-        <div class="card-header bg-light">
+        <div class="card-header" style="background: linear-gradient(135deg, #2a2a3e, #1e1e2e); border-bottom: 1px solid #333; color: #fff;">
           <h5 class="mb-0">📦 Purchase Breakdown</h5>
         </div>
         <div class="card-body">
