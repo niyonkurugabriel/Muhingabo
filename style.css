@@ -126,6 +126,13 @@ footer { color: #888; background: rgba(0,0,0,0.3); padding: 1rem 0; }
   color: #fff;
 }
 
+/* Dark Theme - Text Colors */
+.text-muted { color: #a0a0a0 !important; }
+h1, h2, h3, h4, h5, h6 { color: #fff !important; }
+.text-secondary { color: #b0b0b0 !important; }
+.table-light thead { background: #2a2a3e !important; color: #fff !important; }
+small { color: #a0a0a0 !important; }
+
 /* Dark Theme - Alerts */
 .alert {
   background: linear-gradient(135deg, rgba(42,42,62,0.8), rgba(30,30,46,0.8));

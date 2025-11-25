@@ -102,7 +102,7 @@ foreach ($monthKeys as $k) {
 <?php include 'navbar.php'; ?>
 <div class="container-lg py-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>📊 Daily Report & Balance Sheet</h1>
+    <h1 style="color: #fff;">📊 Daily Report & Balance Sheet</h1>
     <div class="input-group" style="width: 200px;">
       <input type="date" id="reportDate" class="form-control" value="<?php echo $report_date; ?>">
       <button type="button" class="btn btn-primary" onclick="goToDate()">Go</button>
