@@ -1,0 +1,4 @@
+[build]
+  publish = "dist"        # Replace "dist" with your actual build folder
+  command = "npm run build"
+  # base = "frontend"      # Only if your site is in a subfolder
