@@ -41,8 +41,8 @@
                 echo '<td>'.htmlspecialchars($r['purchase_id']).'</td>';
                 echo '<td>'.htmlspecialchars($r['item_name'] ?? 'N/A').'</td>';
                 echo '<td>'.htmlspecialchars($r['quantity']).'</td>';
-                echo '<td>'.number_format($r['price'],2).'</td>';
-                echo '<td>'.number_format($r['total'],2).'</td>';
+                echo '<td>'.currency($r['price']).'</td>';
+                echo '<td>'.currency($r['total']).'</td>';
                 echo '<td>'.htmlspecialchars($r['purchase_date']).'</td>';
                 echo '</tr>';
               }

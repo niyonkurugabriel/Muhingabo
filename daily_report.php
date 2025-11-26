@@ -129,7 +129,7 @@ foreach ($monthKeys as $k) {
       <div class="card metric-card metric-income shadow-sm">
         <div class="card-body">
           <h6 class="text-muted">Total Income (Sales)</h6>
-          <div class="metric-value text-success">$<?php echo number_format($income, 2); ?></div>
+          <div class="metric-value text-success"><?php echo currency($income); ?></div>
           <small class="text-muted"><?php echo $total_qty_sold; ?> units sold (<?php echo $sales_count; ?> transactions)</small>
         </div>
       </div>
@@ -138,7 +138,7 @@ foreach ($monthKeys as $k) {
       <div class="card metric-card metric-expense shadow-sm">
         <div class="card-body">
           <h6 class="text-muted">Total Expenses (Purchases)</h6>
-          <div class="metric-value text-danger">$<?php echo number_format($expenses, 2); ?></div>
+          <div class="metric-value text-danger"><?php echo currency($expenses); ?></div>
           <small class="text-muted"><?php echo $total_qty_bought; ?> units bought (<?php echo $purchase_count; ?> transactions)</small>
         </div>
       </div>
@@ -148,7 +148,7 @@ foreach ($monthKeys as $k) {
         <div class="card-body">
           <h6 class="text-muted">Net Balance</h6>
           <div class="metric-value <?php echo $net_balance >= 0 ? 'text-success' : 'text-danger'; ?>">
-            <?php echo $net_balance >= 0 ? '+' : '-'; ?>$<?php echo number_format(abs($net_balance), 2); ?>
+            <?php echo ($net_balance >= 0 ? '+' : '-') . currency(abs($net_balance)); ?>
           </div>
           <small class="text-muted">Income - Expenses</small>
         </div>
@@ -187,7 +187,7 @@ foreach ($monthKeys as $k) {
                   <tr>
                     <td><?php echo htmlspecialchars($s['item_name'] ?? 'N/A'); ?></td>
                     <td class="text-end"><strong><?php echo $s['qty']; ?></strong></td>
-                    <td class="text-end text-success"><strong>$<?php echo number_format($s['total'], 2); ?></strong></td>
+                    <td class="text-end text-success"><strong><?php echo currency($s['total']); ?></strong></td>
                   </tr>
                 <?php endwhile; ?>
               </tbody>
@@ -216,7 +216,7 @@ foreach ($monthKeys as $k) {
                   <tr>
                     <td><?php echo htmlspecialchars($p['item_name'] ?? 'N/A'); ?></td>
                     <td class="text-end"><strong><?php echo $p['qty']; ?></strong></td>
-                    <td class="text-end text-danger"><strong>$<?php echo number_format($p['total'], 2); ?></strong></td>
+                    <td class="text-end text-danger"><strong><?php echo currency($p['total']); ?></strong></td>
                   </tr>
                 <?php endwhile; ?>
               </tbody>
@@ -238,16 +238,16 @@ foreach ($monthKeys as $k) {
           <table class="table table-borderless">
             <tr>
               <td><strong>Total Income (Revenue)</strong></td>
-              <td class="text-end text-success"><strong>+ $<?php echo number_format($income, 2); ?></strong></td>
+              <td class="text-end text-success"><strong>+ <?php echo currency($income); ?></strong></td>
             </tr>
             <tr>
               <td><strong>Total Expenses (Cost)</strong></td>
-              <td class="text-end text-danger"><strong>- $<?php echo number_format($expenses, 2); ?></strong></td>
+              <td class="text-end text-danger"><strong>- <?php echo currency($expenses); ?></strong></td>
             </tr>
             <tr class="table-active">
               <td><strong style="font-size: 1.2rem;">Net Balance (Profit/Loss)</strong></td>
               <td class="text-end <?php echo $net_balance >= 0 ? 'text-success' : 'text-danger'; ?>"><strong style="font-size: 1.2rem;">
-                <?php echo $net_balance >= 0 ? '+' : ''; ?>$<?php echo number_format($net_balance, 2); ?>
+                <?php echo ($net_balance >= 0 ? '+' : '') . currency($net_balance); ?>
               </strong></td>
             </tr>
           </table>
@@ -316,7 +316,7 @@ function goToDate() {
         responsive: true,
         plugins: { legend: { position: 'top' }, tooltip: { mode: 'index', intersect: false } },
         scales: {
-          y: { beginAtZero: true, ticks: { callback: function(v){ return '$' + Number(v).toLocaleString(); } } }
+          y: { beginAtZero: true, ticks: { callback: function(v){ return 'FRW ' + Number(v).toLocaleString(); } } }
         }
       }
     });

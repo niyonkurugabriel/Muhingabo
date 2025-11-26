@@ -1,0 +1,33 @@
+=== Fixing actions table schema ===
+INFO: 'actions' table exists but lacks 'action_id'. Fixing schema...
+Old schema:
+CREATE TABLE `actions` (
+  `item_id` int(255) NOT NULL,
+  `action_type` varchar(255) NOT NULL,
+  `action_date` date NOT NULL,
+  `details` varchar(255) NOT NULL,
+  PRIMARY KEY (`action_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+
+Creating backup as 'actions_backup'...
+Creating new 'actions_new' with proper schema...
+Copying data from old 'actions' to 'actions_new'...
+Renaming tables: actions -> actions_old, actions_new -> actions...
+SUCCESS: Schema fixed. Old table backed up as 'actions_old'.
+
+New schema:
+CREATE TABLE `actions` (
+  `action_id` int(11) NOT NULL AUTO_INCREMENT,
+  `item_id` int(11) DEFAULT NULL,
+  `action_type` varchar(50) DEFAULT NULL,
+  `action_date` datetime DEFAULT NULL,
+  `details` text DEFAULT NULL,
+  PRIMARY KEY (`action_id`),
+  KEY `item_id` (`item_id`),
+  KEY `action_date` (`action_date`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+
+
+=== Migration Complete ===
+You can now test sales and purchases without duplicate-key errors.
+Visit: http://localhost/invetory_system/db_check.php to verify.

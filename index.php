@@ -48,7 +48,7 @@
             <div class="item-details mt-2" style="display:none;">
               <div class="text-start small">
                 <div><strong>Category:</strong> <?php echo htmlspecialchars($item['category']); ?></div>
-                <div><strong>Price:</strong> $<?php echo number_format($item['price'],2); ?></div>
+                <div><strong>Price:</strong> <?php echo currency($item['price']); ?></div>
                 <div><strong>Supplier:</strong> <?php echo htmlspecialchars($item['supplier']); ?></div>
                 <div><strong>Date Added:</strong> <?php echo htmlspecialchars($item['date_added']); ?></div>
                 <div><strong>Last Modified:</strong> <?php echo htmlspecialchars($item['last_modified']); ?></div>
