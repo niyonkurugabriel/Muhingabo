@@ -4,7 +4,7 @@
  * Handles user logout and session destruction
  */
 
-include 'session_config.php';
+require_once 'session_config.php';
 
 // Destroy the session
 destroy_session();

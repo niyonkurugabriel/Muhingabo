@@ -4,54 +4,84 @@
  * Handles all session-related settings and security
  */
 
-// Start session if not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+// Prevent multiple inclusion / redeclaration
+if (defined('SESSION_CONFIG_LOADED')) {
+    return;
 }
+define('SESSION_CONFIG_LOADED', true);
 
 // Session configuration
 define('SESSION_TIMEOUT', 3600); // 1 hour in seconds
 define('DEFAULT_USERNAME', 'dope');
 define('DEFAULT_PASSWORD', '@1205');
 
+// Configure session cookie to be a browser-session cookie (expire on close)
+$cookieParams = [
+    'lifetime' => 0,
+    'path' => '/',
+    'domain' => '',
+    'secure' => false,
+    'httponly' => true,
+    'samesite' => 'Lax'
+];
+
+if (PHP_SAPI !== 'cli') {
+    // Set session name to a custom name to avoid collisions
+    session_name('muhingabo_sess');
+    // Apply cookie params before starting session
+    session_set_cookie_params($cookieParams);
+
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+}
+
 /**
  * Check if user is logged in
  * @return bool True if user is logged in
  */
+if (!function_exists('is_logged_in')) {
 function is_logged_in() {
     return isset($_SESSION['user_id']) && isset($_SESSION['username']);
+}
 }
 
 /**
  * Get current logged-in username
  * @return string Username or empty string
  */
+if (!function_exists('get_current_user')) {
 function get_current_user() {
     return isset($_SESSION['username']) ? $_SESSION['username'] : '';
+}
 }
 
 /**
  * Get session login time
  * @return int Timestamp of login
  */
+if (!function_exists('get_login_time')) {
 function get_login_time() {
     return isset($_SESSION['login_time']) ? $_SESSION['login_time'] : 0;
+}
 }
 
 /**
  * Check if session has expired
  * @return bool True if session has expired
  */
+if (!function_exists('is_session_expired')) {
 function is_session_expired() {
     if (!is_logged_in()) {
         return true;
     }
-    
+    // Use last activity timestamp for inactivity expiration
     $current_time = time();
-    $login_time = get_login_time();
-    $elapsed = $current_time - $login_time;
-    
+    $last = isset($_SESSION['last_activity']) ? (int) $_SESSION['last_activity'] : 0;
+    $elapsed = $current_time - $last;
+
     return $elapsed > SESSION_TIMEOUT;
+}
 }
 
 /**
@@ -60,6 +90,7 @@ function is_session_expired() {
  * @param string $password Password
  * @return bool True if credentials are valid
  */
+if (!function_exists('validate_credentials')) {
 function validate_credentials($username, $password) {
     // Default credentials (in production, use hashed passwords and database)
     if ($username === DEFAULT_USERNAME && $password === DEFAULT_PASSWORD) {
@@ -67,23 +98,32 @@ function validate_credentials($username, $password) {
     }
     return false;
 }
+}
 
 /**
  * Create session for user
  * @param string $username Username
  * @return void
  */
+if (!function_exists('create_session')) {
 function create_session($username) {
+    // Regenerate session id on login to prevent fixation
+    if (session_status() === PHP_SESSION_ACTIVE) {
+        session_regenerate_id(true);
+    }
+
     $_SESSION['user_id'] = 1; // Default user ID
     $_SESSION['username'] = $username;
     $_SESSION['login_time'] = time();
     $_SESSION['last_activity'] = time();
+}
 }
 
 /**
  * Destroy session
  * @return void
  */
+if (!function_exists('destroy_session')) {
 function destroy_session() {
     $_SESSION = array();
     
@@ -97,13 +137,15 @@ function destroy_session() {
     
     session_destroy();
 }
+}
 
 /**
  * Require login - redirect if not logged in
  * @param string $redirect_url URL to redirect to
  * @return void
  */
-function require_login($redirect_url = 'login.php') {
+if (!function_exists('require_login')) {
+function require_login($redirect_url = 'index.php') {
     if (!is_logged_in() || is_session_expired()) {
         // Clear expired session
         destroy_session();
@@ -116,14 +158,17 @@ function require_login($redirect_url = 'login.php') {
     // Update last activity time
     $_SESSION['last_activity'] = time();
 }
+}
 
 /**
  * Get user display name
  * @return string Display name
  */
+if (!function_exists('get_user_display_name')) {
 function get_user_display_name() {
     $username = get_current_user();
     return ucfirst($username);
+}
 }
 
 ?>

@@ -57,7 +57,7 @@ $current_user = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
               <small style="color: #999;">Logged in as: <strong><?php echo htmlspecialchars($current_user); ?></strong></small>
             </a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item logout-btn" href="logout.php">
+            <li><a class="dropdown-item logout-btn" href="index.php?action=logout">
               🚪 Logout
             </a></li>
           </ul>

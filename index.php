@@ -1,9 +1,31 @@
-<?php 
-include 'session_config.php';
-include 'db_connect.php';
+<?php
+require_once 'session_config.php';
+require_once 'db_connect.php';
 
-// Require login
-require_login();
+// Handle logout via index (integrated)
+if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+  destroy_session();
+  header('Location: index.php');
+  exit;
+}
+
+// Handle login form submission on index
+$login_error = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login_action']) && $_POST['login_action'] === 'login') {
+  $u = isset($_POST['username']) ? trim($_POST['username']) : '';
+  $p = isset($_POST['password']) ? trim($_POST['password']) : '';
+  if ($u === '' || $p === '') {
+    $login_error = 'Please enter both username and password.';
+  } elseif (validate_credentials($u, $p)) {
+    create_session($u);
+    header('Location: index.php');
+    exit;
+  } else {
+    $login_error = 'Invalid username or password. Please try again.';
+  }
+}
+
+// If not logged in, show login UI below; otherwise show dashboard
 ?>
 <!doctype html>
 <html lang="en">
@@ -18,6 +40,33 @@ require_login();
   <?php include 'navbar.php'; ?>
 
   <main class="container py-5">
+    <?php if (!is_logged_in() || is_session_expired()): ?>
+      <div class="d-flex justify-content-center">
+        <div style="width:100%;max-width:520px;">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h3 class="card-title">Sign In</h3>
+              <?php if ($login_error): ?>
+                <div class="alert alert-danger"><?php echo htmlspecialchars($login_error); ?></div>
+              <?php endif; ?>
+              <form method="POST" action="index.php">
+                <input type="hidden" name="login_action" value="login">
+                <div class="mb-3">
+                  <label class="form-label">Username</label>
+                  <input type="text" name="username" class="form-control" value="<?php echo htmlspecialchars(isset($_POST['username'])?$_POST['username']:'dope'); ?>" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Password</label>
+                  <input type="password" name="password" class="form-control" value="<?php echo htmlspecialchars(isset($_POST['password'])?$_POST['password']:'@1205'); ?>" required>
+                </div>
+                <button class="btn btn-primary" type="submit">Sign In</button>
+              </form>
+              <div class="mt-3 small text-muted">Default: <strong>dope</strong> / <strong>@1205</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <?php else: ?>
     <div class="p-4 bg-dark rounded shadow-sm text-center mb-4" style="background: linear-gradient(135deg, #1e1e2e, #2a2a3e) !important; border: 1px solid #333;">
       <h1 class="display-6 mb-3" style="color: #fff;">Welcome to your Stock</h1>
       <p class="lead" style="color: #c0c0c0;">Track items, quantities and see a log of every Add / Update / Delete with timestamps.</p>
@@ -83,6 +132,7 @@ require_login();
         });
       });
     </script>
+    <?php endif; ?>
   </main>
 
   <footer class="text-center py-3 small">

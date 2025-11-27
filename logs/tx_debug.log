@@ -5,3 +5,6 @@
 [2025-11-25 22:26:38] transaction failed: 
 [2025-11-25 22:27:07] execute failed (insert action sale): Duplicate entry 'SALE' for key 'PRIMARY'
 [2025-11-25 22:27:07] transaction failed sale: 
+[2025-11-27 23:31:21] no item found for id=
+[2025-11-27 23:32:07] no item found for id=
+[2025-11-28 00:01:35] no item found for id=

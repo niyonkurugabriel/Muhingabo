@@ -4,7 +4,7 @@
  * Handles user authentication
  */
 
-include 'session_config.php';
+require_once 'session_config.php';
 
 // If already logged in, redirect to dashboard
 if (is_logged_in() && !is_session_expired()) {
