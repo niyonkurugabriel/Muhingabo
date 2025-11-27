@@ -1,5 +1,10 @@
 <?php
+include 'session_config.php';
 include 'db_connect.php';
+
+// Require login
+require_login();
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { header('Location: purchase_item.php'); exit; }
 
 // Support multiple items

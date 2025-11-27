@@ -1,4 +1,10 @@
-<?php include 'db_connect.php'; ?>
+<?php 
+include 'session_config.php';
+include 'db_connect.php';
+
+// Require login
+require_login();
+?>
 <!doctype html>
 <html>
 <head>

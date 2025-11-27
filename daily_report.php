@@ -1,4 +1,9 @@
-<?php include 'db_connect.php'; 
+<?php 
+include 'session_config.php';
+include 'db_connect.php';
+
+// Require login
+require_login();
 
 // Default to today
 $report_date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');

@@ -1,6 +1,13 @@
 <?php
+// Session handling for navbar
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Get current page to highlight active link
 $current_page = basename($_SERVER['PHP_SELF']);
+$is_logged_in = isset($_SESSION['username']);
+$current_user = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
   <div class="container-fluid">
@@ -38,6 +45,24 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <li class="nav-item">
           <a class="nav-link daily-report-btn <?php echo $current_page === 'daily_report.php' ? 'active' : ''; ?>" href="daily_report.php">📊 Daily Report</a>
         </li>
+        
+        <!-- User Menu -->
+        <?php if ($is_logged_in): ?>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            👤 <?php echo htmlspecialchars($current_user); ?>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+            <li><a class="dropdown-item" href="#" onclick="return false;">
+              <small style="color: #999;">Logged in as: <strong><?php echo htmlspecialchars($current_user); ?></strong></small>
+            </a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item logout-btn" href="logout.php">
+              🚪 Logout
+            </a></li>
+          </ul>
+        </li>
+        <?php endif; ?>
       </ul>
     </div>
   </div>
@@ -58,6 +83,13 @@ $current_page = basename($_SERVER['PHP_SELF']);
   transition: transform .15s ease, box-shadow .15s ease;
 }
 .daily-report-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(255,138,0,0.24); }
+.logout-btn {
+  color: #dc3545 !important;
+  font-weight: 500;
+}
+.logout-btn:hover {
+  background-color: #f8d7da !important;
+}
 </style>
 
 

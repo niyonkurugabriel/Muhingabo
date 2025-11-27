@@ -1,5 +1,10 @@
 <?php
+include 'session_config.php';
 include 'db_connect.php';
+
+// Require login
+require_login();
+
 if (!isset($_GET['id'])) { header('Location: view_items.php'); exit; }
 $id = (int) $_GET['id'];
 $r = mysqli_query($conn, "SELECT item_name FROM items WHERE item_id=$id");

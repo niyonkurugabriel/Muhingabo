@@ -1,5 +1,10 @@
 <?php
+include 'session_config.php';
 include 'db_connect.php';
+
+// Require login
+require_login();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $id = (int) $_POST['item_id'];
   $item_name = mysqli_real_escape_string($conn, $_POST['item_name']);

@@ -1,5 +1,10 @@
 <?php
+include 'session_config.php';
 include 'db_connect.php';
+
+// Require login
+require_login();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $item_name = mysqli_real_escape_string($conn, trim($_POST['item_name']));
   $category = mysqli_real_escape_string($conn, $_POST['category']);
