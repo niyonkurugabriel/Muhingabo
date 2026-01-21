@@ -5,6 +5,32 @@ include 'db_connect.php';
 // Require login
 require_login();
 
+if ($_SERVER['REQUEST_METHOD'] !== 'GET') { 
+    header('Location: view_items.php'); 
+    exit; 
+}
+
+// delete item
+if (isset($_GET['id'])) {
+  $id = (int) $_GET['id'];
+  $r = mysqli_query($conn, "SELECT item_name FROM items WHERE item_id=$id");
+  $row = mysqli_fetch_assoc($r);
+  $iname = $row ? mysqli_real_escape_string($conn, $row['item_name']) : '';
+  $del = mysqli_query($conn, "DELETE FROM items WHERE item_id=$id");
+  if ($del) {
+    $details = "Deleted item: $iname";
+    $log = "INSERT INTO actions (item_id, action_type, action_date, details) VALUES ($id, 'DELETE', NOW(), '$details')";
+    $res = mysqli_query($conn, $log);
+    if ($res) {
+      header('Location: view_items.php?msg=deleted');
+      exit;
+    } else {
+      header('Location: view_items.php?msg=error');
+      exit;
+    }
+  }
+}
+/*******  a845c930-b3e8-4f9b-8ec7-054cacaa4064  *******/
 if (!isset($_GET['id'])) { header('Location: view_items.php'); exit; }
 $id = (int) $_GET['id'];
 $r = mysqli_query($conn, "SELECT item_name FROM items WHERE item_id=$id");
