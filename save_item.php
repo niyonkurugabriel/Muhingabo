@@ -6,58 +6,63 @@ include 'db_connect.php';
 require_login();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $item_name = mysqli_real_escape_string($conn, trim($_POST['item_name']));
-  $category = mysqli_real_escape_string($conn, $_POST['category']);
-  $quantity = (int) $_POST['quantity'];
-  $price = (float) $_POST['price'];
-  $supplier = mysqli_real_escape_string($conn, $_POST['supplier']);
-  $date_added = date('Y-m-d');
-  $now = date('Y-m-d H:i:s');
+    $item_name = trim($_POST['item_name']);
+    $category = trim($_POST['category']);
+    $quantity = (int) $_POST['quantity'];
+    $price = (float) $_POST['price'];
+    $supplier = trim($_POST['supplier']);
+    
+    // Handle Image Upload or Selection
+    $image_path = null;
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $file = $_FILES['image'];
+        $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/heic'];
 
-  // Deny duplicate item name (case-insensitive)
-  $check = mysqli_query($conn, "SELECT item_id FROM items WHERE LOWER(item_name) = LOWER('".mysqli_real_escape_string($conn,$item_name)."') LIMIT 1");
-  if (!$check) {
-    die('DB error: '.mysqli_error($conn));
-  }
-  if (mysqli_num_rows($check) > 0) {
-    // redirect back with error
-    header('Location: add_item.php?error=duplicate');
-    exit;
-  }
+        if (in_array($file['type'], $allowed_types)) {
+            $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+            // Create safe filename
+            $filename = uniqid('item_', true) . '.' . $ext;
+            $upload_dir = __DIR__ . '/uploads/';
 
-  // Handle optional image upload
-  $image_path = null;
-  if (isset($_FILES['image']) && $_FILES['image']['error'] !== UPLOAD_ERR_NO_FILE) {
-    $up = $_FILES['image'];
-    if ($up['error'] === UPLOAD_ERR_OK) {
-      $allowed = ['image/jpeg','image/png','image/gif','image/webp'];
-      if (in_array($up['type'], $allowed)) {
-        $ext = pathinfo($up['name'], PATHINFO_EXTENSION);
-        $safe = preg_replace('/[^a-z0-9_-]/i','',pathinfo($up['name'], PATHINFO_FILENAME));
-        $fname = $safe.'-'.time().'.'.$ext;
-        $dest = __DIR__ . '/uploads/' . $fname;
-        if (move_uploaded_file($up['tmp_name'], $dest)) {
-          $image_path = 'uploads/' . $fname;
+            if (!is_dir($upload_dir)) {
+                mkdir($upload_dir, 0755, true);
+            }
+
+            if (move_uploaded_file($file['tmp_name'], $upload_dir . $filename)) {
+                $image_path = 'uploads/' . $filename;
+            }
         }
-      }
+    } elseif (isset($_POST['existing_image']) && !empty($_POST['existing_image'])) {
+        // Use existing image from photos/
+        $existing_file = basename($_POST['existing_image']); // Prevent directory traversal
+        $image_path = 'photos/' . $existing_file;
     }
-  }
 
-  $sql = "INSERT INTO items (item_name, category, quantity, price, supplier, date_added, last_modified, image)"
-       . " VALUES ('$item_name', '$category', $quantity, $price, '$supplier', '$date_added', '$now', ".($image_path ? "'".mysqli_real_escape_string($conn,$image_path)."'" : "NULL").")";
-
-  if (mysqli_query($conn, $sql)) {
-    $item_id = mysqli_insert_id($conn);
-    $details = "Added item: $item_name (qty: $quantity)";
-    $log = "INSERT INTO actions (item_id, action_type, action_date, details) VALUES ($item_id, 'ADD', NOW(), '".mysqli_real_escape_string($conn,$details)."')";
-    mysqli_query($conn, $log);
-    header('Location: view_items.php?msg=added');
-    exit;
-  } else {
-    echo 'Error: ' . mysqli_error($conn);
-  }
+    // Insert into database
+    if ($image_path === null) {
+        $sql = "INSERT INTO items (item_name, category, quantity, price, supplier, image, date_added, last_modified)
+                VALUES (?, ?, ?, ?, ?, NULL, NOW(), NOW())";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "ssids", $item_name, $category, $quantity, $price, $supplier);
+    } else {
+        $sql = "INSERT INTO items (item_name, category, quantity, price, supplier, image, date_added, last_modified)
+                VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "ssidss", $item_name, $category, $quantity, $price, $supplier, $image_path);
+    }
+    
+    if (mysqli_stmt_execute($stmt)) {
+        $item_id = mysqli_insert_id($conn);
+        // Log action
+        log_action($item_id, 'ADD', "Added new item: $item_name (Qty: $quantity)");
+        
+        header('Location: view_items.php?msg=added');
+    } else {
+        // Handle duplicate entry or error
+        header('Location: add_item.php?error=' . urlencode(mysqli_error($conn)));
+    }
+    mysqli_stmt_close($stmt);
 } else {
-  header('Location: add_item.php');
-  exit;
+    header('Location: add_item.php');
 }
 ?>
